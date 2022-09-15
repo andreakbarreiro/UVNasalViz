@@ -1,11 +1,31 @@
 # UVNasalViz
 Visualize and analyze data in simulated nasal cavities
 
+Modified from UVGUI produced by ...
+  (Reference here)
+  
+See also
+- Elad et al. 2005
+- others?
+
 CONTENTS: 
 | File name | Description |   
-| --------- | -------- |   
-| ** caseDirs | Sample OpenFoam case directories
+|---------- | -------- |   
+| **caseDirs** | Sample OpenFoam case directories
 | --------- |  -------- |  
-  | Elad_Test_Case | Domain met to approximate geometric domain from Elad et al. 2005. |
-| ** code ** |
-| --------- |  -------- |  
+ | caseDirs/Elad_Test_Case | Domain met to approximate geometric domain from Elad et al. 2005. |
+| **code** |  Matlab routines |
+| code/test_fascestats.m | |
+| code/test_findb.m | |
+| code/test_plot_UV.m | |
+| code/test_read_polyMesh.m | |
+| **code/util_files** | Routines for reading files |
+| code/util_files/facestats.m | |
+| code/util_files/read_faces.m | |
+| code/util_files/read_polyMesh.m | |
+| code/util_files/read_uv.m | |
+| code/util_files/read_wss_mag_OF_face.m | |
+| **code/util_geom** | Routines for interacting with geometric entities; finding boundaries, areas, etc..
+| code/util_geom/faceArea.m | | 
+| code/util_geom/findb.m | | 
+| code/util_geom/maxSide.m | | 
