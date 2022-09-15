@@ -1,0 +1,57 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5.0                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    location    "0";
+    object      wallShearStress;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 2 -2 0 0 0 0];
+
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+    septal
+    {
+        type            calculated;
+        value           uniform (0 0 0);
+    }
+    lateral
+    {
+        type            calculated;
+        value           uniform (0 0 0);
+    }
+    nostril
+    {
+        type            calculated;
+        value           uniform (0 0 0);
+    }
+    sides
+    {
+        type            calculated;
+        value           uniform (0 0 0);
+    }
+    nasopharynx
+    {
+        type            calculated;
+        value           uniform (0 0 0);
+    }
+    turbinates
+    {
+        type            calculated;
+        value           uniform (0 0 0);
+    }
+}
+
+
+// ************************************************************************* //

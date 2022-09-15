@@ -1,0 +1,30 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      transportProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+//Additional line in file for pisoFoam: uncomment for postprocessing
+transportModel  Newtonian;
+
+//AKB: Must be set to kinematic viscosity of fluid (in this case air)
+//
+nu              [0 2 -1 0 0 0 0] 1.57e-5;  /* Yang et al. 2007 (kinematic viscosity of air) */
+
+//nu              [0 2 -1 0 0 0 0] 1.57e-5;  /* Yang et al. 2007 (kinematic viscosity of air) */
+
+/* NOTE: Previously MISQUOTED as e-7! */
+
+
+// ************************************************************************* //

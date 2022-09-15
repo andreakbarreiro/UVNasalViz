@@ -1,0 +1,65 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    object      U;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+    nostril
+    {
+	type 		pressureInletOutletVelocity;
+	value		uniform (0 0 0);
+        //type            fixedValue;
+	//value		uniform (0 0 1);  //To approx Elad et al. "peak value of 2 m/s"
+    }
+
+    nasopharynx
+    {
+	type		pressureInletOutletVelocity;
+	value		uniform (0 0 0);
+        //type            zeroGradient;
+    }
+
+    lateral
+    {
+        type            noSlip;
+    }
+ 
+    // Divided "lateral" into {"lateral","sides"}
+    sides
+    {
+        type            noSlip;
+    }
+
+    turbinates
+    {
+        type            noSlip;
+    }
+
+    septal
+    {
+        type            noSlip;
+    }
+
+    defaultFaces
+    {
+        type            empty;
+    }
+}
+
+// ************************************************************************* //
