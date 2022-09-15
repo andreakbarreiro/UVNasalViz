@@ -9,8 +9,8 @@ See also
 - others?
 
 CONTENTS: 
-| File name | Description |   
-|---------- | -------- |   
+| File name | Description |  
+| --------- | -------- |     
 | **caseDirs** | Sample OpenFoam case directories
 | --------- |  -------- |  
  | caseDirs/Elad_Test_Case | Domain met to approximate geometric domain from Elad et al. 2005. |
