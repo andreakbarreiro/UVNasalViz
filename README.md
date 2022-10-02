@@ -25,6 +25,7 @@ CONTENTS:
 | code/util_files/read_uv.m | |
 | code/util_files/read_wss_mag_OF_face.m | |
 | **code/util_geom** | Routines for interacting with geometric entities; finding boundaries, areas, etc..
+| code/util_geom/compAllWallBdy.m | Compute each piece of wall boundary separately, return in a cell structure|
 | code/util_geom/faceArea.m | | 
 | code/util_geom/findb.m | | 
 | code/util_geom/maxSide.m | | 
