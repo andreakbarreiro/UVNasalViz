@@ -1,4 +1,4 @@
-function w = read_wss_mag_OF_face(filename,wallInfo)
+function [w,wallInfo] = read_wss_mag_OF_face(filename,wallInfo)
 % read_wss_mag_OF_face:  read an Open Foam wall shear stress (WSS) file
 %       and return the MAGNITUDE of the WSS vector
 %
@@ -7,7 +7,7 @@ function w = read_wss_mag_OF_face(filename,wallInfo)
 % 
 % OUTPUT
 %  w  : nx3 matrix of WSS for each wall face
-%  wallInfo  : suppementary info from file,
+%  wallInfo  : supplementary info from file,
 %      characterizing each segment of wall
 %      (can be used later to validate match with location information)
 %     wallInfo.Name:    name of boundary region
