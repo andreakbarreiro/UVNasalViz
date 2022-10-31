@@ -6,10 +6,11 @@ addpath('util_geom');
 addpath('util_plot');
 
 %% Read geometries, if not already done
-read_polyMesh_flag = 0;
-read_uv_flag       = 0;
+read_polyMesh_flag = 1;
+read_uv_flag       = 1;
 if (read_polyMesh_flag)
-    caseDir = '../caseDirs/Elad_Test_Case_10s/';
+    caseDir = '../caseDirs/Inthavong_OrthoOnly_0p5Hz/';
+    %caseDir = '../caseDirs/Elad_Test_Case_10s/';
 
     % Boundary file name
     fname   = 'constant/polymesh/boundary';
@@ -26,7 +27,9 @@ end
 lbAll = compAllWallBdy(fp,r,face);
 
 % Array of time points
-tarray = 2:0.05:4;  nT = length(tarray);
+tarray = 0.05:0.05:0.9;  nT = length(tarray);
+
+%tarray = 2:0.05:6;  nT = length(tarray);
 
 % Set up storage for WSS
 nFace  = size(face,1);
@@ -43,20 +46,23 @@ figure;
 u=r(:,1); v=r(:,2); 
 U_patch=u(face)';V_patch=v(face)';
 
-if (0)
+
+if (1)
+figure;
 for j1=1:nT
     patch(U_patch,V_patch,warray(:,j1)','LineStyle','None');
     axis equal;axis tight;
-    colorbar; set(gca,'FontSize',16); caxis([0,0.3]);
+    colorbar; set(gca,'FontSize',16); caxis([0,0.1]);
     title(sprintf('T = %g',tarray(j1)));
     pause(0.2);
 end
 end
 
+
+if (0)
 % Average over multiple periods
 Tperiod     = 2;
 [avgW,timeMod]      = calcAvgOverCycles(warray,tarray,Tperiod);
-
 
 %% Now try smoothing in space
 smoAvgW = mapQuantFaceToPoint(avgW,face,wallInfo);
@@ -98,7 +104,7 @@ title(sprintf('Preferred time'));
 
 hold on;
 plotAllWallBdy(lbAll,optPS);
-
+end
 
 
 if (0) 
