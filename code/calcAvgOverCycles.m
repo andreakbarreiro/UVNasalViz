@@ -21,10 +21,19 @@ end
 
 timeMod     = mod(tarray,Tperiod);
 
+timeMod
+
 % How many periods do we have?
 allFirst = find(abs(timeMod-timeMod(1))<1e-5);
 nseq1     = length(allFirst);
-onePeriod = timeMod(1:(allFirst(2)-1));
+
+allFirst
+if (length(allFirst)==1) % No repetition; only one cycle 
+    onePeriod = timeMod;
+else
+    % Get rid of everything after the first cycle
+    onePeriod = timeMod(1:(allFirst(2)-1));
+end
 
 % This is a little baroque
 nseq2=length(find(abs(timeMod-onePeriod(end))<1e-5));
@@ -48,7 +57,10 @@ warray_reshape = reshape(warray,newDim);
 %Average across periods
 avgW    = mean(warray_reshape,3);
 
-%Remove extra entries of timeMod
-timeMod(allFirst(2):end)=[]; 
+if (length(allFirst)>1) 
+    %Remove extra entries of timeMod, if applicable
+    timeMod(allFirst(2):end)=[]; 
+end
+
 end
 
