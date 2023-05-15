@@ -13,13 +13,17 @@ CONTENTS:
 | --------- | ----------- |
 | **caseDirs** | Sample OpenFoam case directories
 | caseDirs/Elad_Test_Case | Approximates "geometric" domain from Elad et al. 2005. |
+| caseDirs/Inthavong_Test_Case | Human nasal cavity from Inthavong et al. 2014, 2017 |
 | **code** |  Matlab routines |
 | code/calcAvgOverCycles.m | Calculate averages over several breath cycles | 
 | code/calcPrefPhase.m | Calculate preferred phase  | 
+| code/makePlotsCRCNSPoster.m | Plots for CRCNS poster, October 2022 |
+| code/makePlotsCRCTalk.m | Plots for CRC talk, Aoril 2023 |
 | code/test_facestats.m | |
 | code/test_findb.m | |
 | code/test_plot_UV.m | |
 | code/test_read_polyMesh.m | |
+| code/test_useOfBdyFile.m | Read in boundary file (which assigns each face to a physical region) |
 | code/test_WSS_overTime.m | Read WSS files for a sequence of time steps|
 | **code/util_files** | Routines for reading files |
 | code/util_files/facestats.m | |
