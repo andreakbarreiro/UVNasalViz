@@ -1,2 +1,9 @@
 This is a test case for the human nasal cavity described in 
 Inthavong, et al. 2017 (find rest of citation here)
+
+The "boundary file" uses information from the TECPLOT file those authors provided
+This contains:
+ - allBdy3D - boundary segments in 3D, corresponds to coordinates from original file (but down sampled)
+ - allBdy2D - boundary segments in 2D, specific to a UV-file (this is important!)
+ - sourcefile - name of the UV-file whose 2D coordinates were the reference in creating allBdy2D
+ - zoInfo - Contains (1) names of each region and (2) number of faces in each region
