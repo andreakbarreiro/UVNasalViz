@@ -14,6 +14,7 @@ CONTENTS:
 | **caseDirs** | Sample OpenFoam case directories
 | caseDirs/Elad_Test_Case | Approximates "geometric" domain from Elad et al. 2005. |
 | caseDirs/Inthavong_Test_Case | Human nasal cavity from Inthavong et al. 2014, 2017 |
+| caseDirs/ReadTecplot_GetRegions | To identify olfactory region of Inthavong mesh |
 | **code** |  Matlab routines |
 | code/calcAvgOverCycles.m | Calculate averages over several breath cycles | 
 | code/calcPrefPhase.m | Calculate preferred phase  | 
