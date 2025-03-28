@@ -1,7 +1,13 @@
 function [p, sigFace, S, lmax] = read_polyMesh(caseDir)
 % read_polyMesh: read points from an OpenFoam file
+%   Return ONLY wall faces
+% 
 %   We ASSUME this is a tetrahedral mesh: all faces must be
 %     triangles
+%   UPDATE 3/28/25: Adapting this to deal with 4-or more cornered faces
+%     Downstream routines STILL ASSUME triangle faces so a warning 
+%     will be given here if not
+%
 %  INPUTS:
 %     caseDir:    relative location of an OpenFoam case directory   
 %        Must contain files: 
@@ -10,14 +16,19 @@ function [p, sigFace, S, lmax] = read_polyMesh(caseDir)
 %
 %  OUTPUTS:
 %     p:        (np x3) point coordinates (x,y,z)
-%     sigFace:  (nf x3) point indices of each face
+%     sigFace:  (nf x3) point indices of each face on the wall
 %     S:        (nfx1) area of each face
 %     lmax:     unsure
 %
-    [fp fstats] = facestats([caseDir 'constant/polymesh/boundary']);
+
+% NOTE: 2/26/25: code refers to directory "polymesh" but should be
+% "polyMesh"; how in the world did this work before??
+%
+% 
+    [fp fstats] = facestats([caseDir 'constant/polyMesh/boundary']);
 
     % points from polymesh
-    p = read_points([caseDir 'constant/polymesh/points']);
+    p = read_points([caseDir 'constant/polyMesh/points']);
  
     % For each physical region
     startFaceIndex  =  fp(:,1) + 1;     %Offset by 1 because OpenFoam 
@@ -25,14 +36,15 @@ function [p, sigFace, S, lmax] = read_polyMesh(caseDir)
     nFace           =  fp(:,2);
    
     % Read faces
-    faces = read_faces([caseDir 'constant/polymesh/faces']);
-    
+    faces = read_faces([caseDir 'constant/polyMesh/faces']);
+    [~,maxNumCor] = size(faces);
+
     % Determine which boundary pieces are WALLS
     whichWalls = find(fp(:,3));
      
     % How many boundary faces do we have?
     nBdyFaces   = sum(nFace(whichWalls));    
-    sigFace     = zeros(nBdyFaces,3);
+    sigFace     = nan(nBdyFaces,maxNumCor);
     
     % Iterate through wall regions. 
     % Save ONLY boundary faces
@@ -67,6 +79,17 @@ function [p, sigFace, S, lmax] = read_polyMesh(caseDir)
     % At this point we can clear faces
     clear faces
     
+    % Check if sigFaces are all triangles. If not, issue WARNING
+    % 
+    toremove=find(all(isnan(sigFace)));
+    sigFace(:,toremove)=[];
+    if (size(sigFace,2)>3)
+        warning('The wall contains non-triangle faces! Downstream code will malfunction!');
+        warning('Check %s', caseDir);
+    else
+        disp('The wall seems to have only triangular faces');
+    end
+
    % Actually, the below is NOT true
    % We do not need to interpolate to points
 %     % Each row of sigFace contains three point indices
@@ -82,13 +105,15 @@ function [p, sigFace, S, lmax] = read_polyMesh(caseDir)
 %     %   For now cut down # of points
 %     %
     sigFacePointsNoDup = unique(reshape(sigFace,[3*length(sigFace) 1]));
-    length(sigFacePointsNoDup)
-    sigFacePointsNoDup(1:10)
-    sigFacePointsNoDup(end-10:end)
+    %length(sigFacePointsNoDup)
+    %sigFacePointsNoDup(1:10)
+    %sigFacePointsNoDup(end-10:end)
     
     % Discard any points AFTER this
     p = p(1:max(sigFacePointsNoDup),:);
     
+    % FOR EXAMPLE: this will probably fail if there are 
+    %  non-triangular faces in sigFace
     % Compute areas, lmax
     bdyPts = zeros(nBdyFaces,9);
     for j=1:nBdyFaces
