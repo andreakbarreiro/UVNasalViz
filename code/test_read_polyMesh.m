@@ -3,7 +3,18 @@
 addpath('util_files');
 addpath('util_geom');
 
-caseDir = '../Elad_Test_Case/';
+whichCase= 2;
+if (whichCase == 2)
+    caseDir = '../caseDirs/Elad_Test_Case/';
+elseif (whichCase == 1)
+    % Old mesh: only 3 sided faces
+    caseDir =  '/projects/abarreiro/nasoCFD/nasoCFD/intha/old_mesh/intha_normal/'
+
+else
+    % New mesh w/ boundary layers
+    % Some faces have 4 sides
+    caseDir =  '/projects/abarreiro/nasoCFD/nasoCFD/test_sims/intha_0.5mil_tetra/'
+end
 
 % Boundary file name
 fname   = 'constant/polymesh/boundary';
@@ -20,8 +31,6 @@ wssfname    = sprintf('%s%g/wallShearStress',caseDir,timestep);
 
 w = read_wss_mag_OF_face(wssfname);
 
-%Q : what do these weird functions do?
-
 
 %Try to plot
 figure;
@@ -33,6 +42,7 @@ colorbar;
 set(gca,'FontSize',16);
 
 
+if (0)
 % Try read_uv
 
 uvfile = '../GUI/uv2.obj';
@@ -69,4 +79,6 @@ for j=1:nT
     title(sprintf('t = %g',ts_array(j)));
     caxis([0,maxW]);
     pause(1);
+end
+
 end

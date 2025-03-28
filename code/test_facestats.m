@@ -1,10 +1,10 @@
 
 % test_facestats.m
-addpath('util');
+addpath('util_files');
 
-caseDir = '../Elad_Test_Case/';
+caseDir = '../caseDirs/Elad_Test_Case/';
 
 % Boundary file name
-fname   = 'constant/polymesh/boundary';
+fname   = 'constant/polyMesh/boundary';
 
 [fp fstats]=facestats([caseDir fname]);
