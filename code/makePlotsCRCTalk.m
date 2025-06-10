@@ -15,16 +15,8 @@ if (read_polyMesh_flag)
     % and UV files. However, it's probaly better than having endless
     % confusion
     %
-    % Inthavong directory    
-    %caseDir = '../caseDirs/intha_amp_50/';
-    caseDir =  '/projects/abarreiro/nasoCFD/nasoCFD/intha/old_mesh/intha_normal/'
-
-% /intha/old_mesh
-%   /intha_normal
-%   /intha_lam_freq_0p17
-%   /intha_lam_freq_0p64
-%   /intha_totpress_normal
-% /intha/new_mesh
+    % Inthavong directory
+    caseDir = '../caseDirs/intha_amp_50/';
 
     % Boundary file name
     fname   = 'constant/polymesh/boundary';
@@ -34,10 +26,9 @@ if (read_polyMesh_flag)
 end
 if (read_uv_flag)
     %% Load in boundary file
-    %bdydir      = '../../MeshCreation/ReadTecplot_GetRegions/'
 
-    % On M3
-    bdydir = '../caseDirs/Inthavong_Test_Case/'
+    bdydir      = '../../MeshCreation/ReadTecplot_GetRegions/'
+
     bdyfile     = 'bdy_All_Inthavong.mat'
     %bdyfile     = 'bdy_Olfac_Inthavong.mat';
     load([bdydir bdyfile]);
