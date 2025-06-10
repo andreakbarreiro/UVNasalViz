@@ -54,9 +54,9 @@ disp('Min/Max for R')
 % Create point cloud objects from your arrays
 
 if (1)
-    % Treat ROld as the moving points. We want our mesh to
-    % (i.e. wrt which our computation was performed) to be 
-    % preserved. In contrastm, this is the ONLY time we will refer to the 
+    % Treat ROld as the moving points. We want our mesh
+    % (i.e. the mesh wrt which our computation was performed) to be 
+    % preserved. In contrast, this is the ONLY time we will refer to the 
     % coordinates in the tecplot file.
     % 
     % Create point cloud objects from your arrays
@@ -213,7 +213,7 @@ for j1=1:nReg
     allBdy2D{j1}=Bdy2D;
 end
 
-% Now savs
+% Now save
 
 sourcefile = [objdir objfile];
 save(bdyfile,'sourcefile','allBdy3D','allBdy2D','zo_Info');
