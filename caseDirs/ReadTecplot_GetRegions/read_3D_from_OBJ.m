@@ -50,7 +50,7 @@ r=load('out_vt.txt');map=load('out_f.txt');
 
 R = load('out_v.txt');
 
-%delete out_vt.txt; delete out_f.txt; 
+delete out_vt.txt; delete out_f.txt; 
 
 if (size(map,2)==9)
     % Face elements can be specified v/vt/vn or v/vt/vn

@@ -15,11 +15,21 @@ tecfile = 'DUN001_mapping_example_tec.dat';
 
 
 if (1)
-   objdir  = '../../UVViz/caseDirs/intha_amp_50/';
-   objfile = 'uv_FIXED.obj'; 
+    caseDir_Head = '/projects/abarreiro/nasoCFD/nasoCFD/intha/'
+    caseDir = [caseDir_Head 'new_mesh/intha_0.5mil_fixU/'];
+
+    objdir = caseDir;
+    objfile = 'uv_intha_0.5mil_fixU.obj'
+    bdyfile    = 'bdy_All_Inthavong_TEST.mat';
+   %objdir  = '../../UVViz/caseDirs/intha_amp_50/';
+   %objfile = 'uv_FIXED.obj'; 
 else
     objdir  = '../../UVViz/caseDirs/Inthavong_OrthoOnly_0p5Hz/';
     objfile = 'uv2_FIXED.obj';
+
+    % This will be saved in the same directory as objfile unles you do
+    % something
+    bdyfile    = 'bdy_All_Inthavong.mat';
 end
 
 [ROld,P,FACE_Old,S,lmax,zo_Info]=read_data_Tecplot_wZones(tecfile);
@@ -35,15 +45,41 @@ fprintf('length of face = %d\n', length(face))
 
 disp('Min/Max for ROld')
 [min(ROld);max(ROld)]
-%diff([min(ROld);max(ROld)])
-
-%mROld=mean([min(ROld);max(ROld)])
 
 disp('Min/Max for R')
 [min(R);max(R)]
 
+%% I may need to rotate points. Perform a "registration" 
+%% so points align optimally.
+% Create point cloud objects from your arrays
 
-% OK: points now on the same scale!!!
+if (1)
+    % Treat ROld as the moving points. We want our mesh
+    % (i.e. the mesh wrt which our computation was performed) to be 
+    % preserved. In contrast, this is the ONLY time we will refer to the 
+    % coordinates in the tecplot file.
+    % 
+    % Create point cloud objects from your arrays
+    ptCloudA = pointCloud(R); % fixed
+    ptCloudB = pointCloud(ROld); % moving
+
+
+    [~,movingReg] = pcregistericp(ptCloudB,ptCloudA,Metric="planeToPlane");
+    ROld = movingReg.Location;
+else
+    % In Abdullah's scripts
+    ptCloudA = pointCloud(ROld); % fixed
+    ptCloudB = pointCloud(R); % moving
+
+    [~,movingReg] = pcregistericp(ptCloudB,ptCloudA,Metric="planeToPlane");
+    R = movingReg.Location;
+end
+
+disp('Min/Max for ROld')
+[min(ROld);max(ROld)]
+
+disp('Min/Max for R')
+[min(R);max(R)]
 
 %% Now, assign a zone to "faces"
 nFaces = length(face);
@@ -178,8 +214,8 @@ for j1=1:nReg
 end
 
 % Now save
+
 sourcefile = [objdir objfile];
-bdyfile    = 'bdy_All_Inthavong.mat';
 save(bdyfile,'sourcefile','allBdy3D','allBdy2D','zo_Info');
 
 
